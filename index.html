@@ -14,12 +14,7 @@
 
 <body>
 
-    <!-- CURSOR -->
-    <div id="cursor">
-        <div class="cur-outer"></div>
-        <div class="cur-inner"></div>
-        <div class="cur-text">Open</div>
-    </div>
+
 
     <!-- SCROLL PROGRESS -->
     <div id="sprogress"></div>
@@ -480,7 +475,7 @@
             </h2>
             <p class="penutup-from reveal d3">
                 Putra dari<br>
-                <strong>Bapak Irfan Alfarizi &amp; Ibu Nurul Hidayah</strong><br><br>
+                <strong>Bapak Tegus Fahrurozi S.P &amp; Ibu Sucira S.T</strong><br><br>
                 Mengucapkan terima kasih yang sebesar-besarnya<br>
                 atas doa dan kehadiran Bapak/Ibu/Saudara/i tercinta
             </p>
@@ -495,27 +490,6 @@
     </div><!-- /main -->
 
     <script>
-        /* ══ CURSOR ══ */
-        const $cur = document.getElementById('cursor');
-        const curOuter = $cur.querySelector('.cur-outer');
-        const curInner = $cur.querySelector('.cur-inner');
-        let mx = innerWidth / 2, my = innerHeight / 2, ox = mx, oy = my;
-
-        document.addEventListener('mousemove', e => {
-            mx = e.clientX; my = e.clientY;
-            curInner.style.left = mx + 'px';
-            curInner.style.top = my + 'px';
-            const ct = $cur.querySelector('.cur-text');
-            ct.style.left = mx + 'px'; ct.style.top = my + 'px';
-        });
-
-        (function animCursor() {
-            ox += (mx - ox) * .1; oy += (my - oy) * .1;
-            curOuter.style.left = Math.round(ox) + 'px';
-            curOuter.style.top = Math.round(oy) + 'px';
-            requestAnimationFrame(animCursor);
-        })();
-
         /* ══ LOADER ══ */
         const lline = document.getElementById('lline');
         let pct = 0;
