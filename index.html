@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Undangan Khitanan · Najwan Kamil Alfarizi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Naskh+Arabic:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- CURSOR -->
+    <div id="cursor">
+        <div class="cur-outer"></div>
+        <div class="cur-inner"></div>
+        <div class="cur-text">Open</div>
+    </div>
+
+    <!-- SCROLL PROGRESS -->
+    <div id="sprogress"></div>
+
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="ldr-logo">Najwan</div>
+        <div class="ldr-line-wrap">
+            <div class="ldr-line" id="lline"></div>
+        </div>
+        <div class="ldr-sub">Memuat undangan digital</div>
+    </div>
+
+    <!-- GATE -->
+    <div id="gate">
+        <div class="gate-bg"></div>
+        <canvas id="gCanvas"></canvas>
+
+        <div class="gate-frame">
+            <div class="gf-corner tl"></div>
+            <div class="gf-corner tr"></div>
+            <div class="gf-corner bl"></div>
+            <div class="gf-corner br"></div>
+        </div>
+
+        <!-- Horizontal accent lines -->
+        <div
+            style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g),transparent);opacity:.5">
+        </div>
+        <div
+            style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--g),transparent);opacity:.5">
+        </div>
+
+        <div class="gate-content">
+            <p class="gate-ar">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
+
+            <div class="seal-wrap">
+                <div class="seal-ring1">
+                    <svg viewBox="0 0 96 96" style="width:100%;height:100%">
+                        <circle cx="48" cy="48" r="46" fill="none" stroke="rgba(201,168,76,.2)" stroke-width="1" />
+                        <!-- tick marks -->
+                        <g stroke="rgba(201,168,76,.4)" stroke-width="1">
+                            <line x1="48" y1="3" x2="48" y2="10" />
+                            <line x1="48" y1="86" x2="48" y2="93" />
+                            <line x1="3" y1="48" x2="10" y2="48" />
+                            <line x1="86" y1="48" x2="93" y2="48" />
+                        </g>
+                    </svg>
+                </div>
+                <div class="seal-ring2"></div>
+                <div class="seal-ring3"></div>
+                <div class="seal-center">N</div>
+            </div>
+
+            <p class="gate-pre">Undangan Walimatul Khitan</p>
+            <h1 class="gate-name">Najwan Kamil</h1>
+            <h2 class="gate-name2">Alfarizi</h2>
+
+            <div class="gate-orn">
+                <div class="go-line"></div>
+                <div class="go-gem"></div>
+                <div class="go-line r"></div>
+            </div>
+
+            <p class="gate-date">Sabtu · 11 Juli 2026</p>
+
+            <div class="gate-btn hoverable" onclick="openGate()">
+                <div class="gate-btn-circle">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,.8)"
+                        stroke-width="1.5">
+                        <rect x="3" y="5" width="18" height="14" rx="2" />
+                        <polyline points="3,5 12,13 21,5" />
+                    </svg>
+                </div>
+                <span class="gate-btn-label">Buka Undangan</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ MAIN ═══════════ -->
+    <div id="main">
+
+        <!-- NAV -->
+        <nav id="nav">
+            <div class="nav-brand"><span>N</span>KA &nbsp;·&nbsp; Khitan</div>
+            <div class="nav-links">
+                <a class="na hoverable" onclick="go('#galeri-sec')">Galeri</a>
+                <a class="na hoverable" onclick="go('#acara-sec')">Acara</a>
+                <a class="na hoverable" onclick="go('#lok-sec')">Lokasi</a>
+            </div>
+        </nav>
+
+        <!-- BOTTOM NAV -->
+        <div id="bnav">
+            <a class="bni hoverable" onclick="go('#hero')"><span class="bni-i">🏠</span><span
+                    class="bni-l">Beranda</span></a>
+            <a class="bni hoverable" onclick="go('#galeri-sec')"><span class="bni-i">🖼️</span><span
+                    class="bni-l">Galeri</span></a>
+            <a class="bni hoverable" onclick="go('#acara-sec')"><span class="bni-i">📋</span><span
+                    class="bni-l">Acara</span></a>
+            <a class="bni hoverable" onclick="go('#lok-sec')"><span class="bni-i">📍</span><span
+                    class="bni-l">Lokasi</span></a>
+        </div>
+
+        <!-- MUSIC -->
+        <div id="mpill" onclick="toggleMusic()" class="hoverable">
+            <div class="mp-eq">
+                <div class="mp-b" id="b1" style="height:6px"></div>
+                <div class="mp-b" id="b2" style="height:12px"></div>
+                <div class="mp-b" id="b3" style="height:8px"></div>
+                <div class="mp-b" id="b4" style="height:14px"></div>
+                <div class="mp-b" id="b5" style="height:10px"></div>
+            </div>
+            <span id="mtxt">Musik</span>
+        </div>
+
+        <!-- ═══ HERO ═══ -->
+        <section id="hero"
+            style="min-height:100svh;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 28px 120px">
+            <canvas id="heroCanvas" style="position:absolute;inset:0;pointer-events:none"></canvas>
+            <div class="hero-bg"></div>
+            <div class="hero-grid"></div>
+            <div class="hero-scan"></div>
+
+            <!-- Floating geometrics -->
+            <div class="geo active"
+                style="top:12%;left:6%;--d:11s;--dl:0s;--x1:12px;--y1:-16px;--r1:30deg;--x2:-8px;--y2:14px;--r2:75deg">
+                <svg width="28" height="28">
+                    <rect x="4" y="4" width="20" height="20" fill="none" stroke="rgba(201,168,76,.3)" stroke-width="1"
+                        transform="rotate(15 14 14)" />
+                </svg>
+            </div>
+            <div class="geo active"
+                style="top:18%;right:8%;--d:9s;--dl:1.5s;--x1:-14px;--y1:-10px;--r1:-45deg;--x2:10px;--y2:18px;--r2:90deg">
+                <svg width="22" height="22">
+                    <polygon points="11,2 20,20 2,20" fill="none" stroke="rgba(201,168,76,.25)" stroke-width="1" />
+                </svg>
+            </div>
+            <div class="geo active"
+                style="top:70%;left:4%;--d:13s;--dl:2s;--x1:10px;--y1:-20px;--r1:60deg;--x2:-12px;--y2:8px;--r2:120deg">
+                <svg width="20" height="20">
+                    <circle cx="10" cy="10" r="8" fill="none" stroke="rgba(201,168,76,.2)" stroke-width="1" />
+                </svg>
+            </div>
+            <div class="geo active"
+                style="top:75%;right:6%;--d:10s;--dl:.8s;--x1:-10px;--y1:-14px;--r1:-30deg;--x2:14px;--y2:10px;--r2:60deg">
+                <svg width="24" height="24">
+                    <rect x="4" y="4" width="16" height="16" fill="none" stroke="rgba(201,168,76,.22)" stroke-width="1"
+                        transform="rotate(45 12 12)" />
+                </svg>
+            </div>
+            <div class="geo active"
+                style="top:40%;left:3%;--d:15s;--dl:3s;--x1:8px;--y1:-8px;--r1:20deg;--x2:-14px;--y2:16px;--r2:45deg">
+                <svg width="16" height="16">
+                    <circle cx="8" cy="8" r="4" fill="rgba(201,168,76,.08)" />
+                    <circle cx="8" cy="8" r="7" fill="none" stroke="rgba(201,168,76,.2)" stroke-width=".5" />
+                </svg>
+            </div>
+            <div class="geo active"
+                style="top:35%;right:4%;--d:12s;--dl:1s;--x1:-10px;--y1:-18px;--r1:90deg;--x2:8px;--y2:12px;--r2:180deg">
+                <svg width="18" height="18">
+                    <line x1="9" y1="0" x2="9" y2="18" stroke="rgba(201,168,76,.3)" stroke-width="1" />
+                    <line x1="0" y1="9" x2="18" y2="9" stroke="rgba(201,168,76,.3)" stroke-width="1" />
+                </svg>
+            </div>
+
+            <!-- Top ornament SVG -->
+            <div class="hero-top-ornament">
+                <svg viewBox="0 0 240 40" fill="none">
+                    <line x1="0" y1="20" x2="80" y2="20" stroke="rgba(201,168,76,.2)" stroke-width="1" />
+                    <line x1="100" y1="20" x2="140" y2="20" stroke="rgba(201,168,76,.3)" stroke-width="1" />
+                    <line x1="160" y1="20" x2="240" y2="20" stroke="rgba(201,168,76,.2)" stroke-width="1" />
+                    <rect x="88" y="14" width="12" height="12" fill="none" stroke="rgba(201,168,76,.5)" stroke-width="1"
+                        transform="rotate(45 94 20)" />
+                    <rect x="148" y="15" width="10" height="10" fill="none" stroke="rgba(201,168,76,.4)"
+                        stroke-width="1" transform="rotate(45 153 20)" />
+                    <circle cx="120" cy="20" r="3" fill="rgba(201,168,76,.6)" />
+                </svg>
+            </div>
+
+            <p class="hero-eyebrow">Walimatul Khitan</p>
+
+            <!-- Hero Photo Frame -->
+            <div class="hero-photo-frame">
+                <div class="hpf-corner hpf-tl"></div>
+                <div class="hpf-corner hpf-tr"></div>
+                <div class="hpf-corner hpf-bl"></div>
+                <div class="hpf-corner hpf-br"></div>
+                <div class="hpf-ring"></div>
+                <img src="foto/1.jpeg" alt="Najwan Kamil Alfarizi" class="hero-photo-img" />
+                <div class="hpf-overlay"></div>
+            </div>
+
+            <div class="clip-wrap">
+                <span class="clip-inner ci-1">Najwan</span>
+            </div>
+            <div class="clip-wrap">
+                <span class="clip-inner ci-2">Kamil</span>
+            </div>
+
+            <p class="hero-name-gold">Alfarizi</p>
+            <p class="hero-arabic-name">نجوان كامل الفارزي</p>
+
+            <div class="hero-divider">
+                <div class="hd-line l"></div>
+                <div class="hd-star"></div>
+                <div class="hd-line r"></div>
+            </div>
+
+            <div class="hero-badge">
+                <div class="hb-dot"></div>
+                Sabtu, 11 Juli 2026
+                <div class="hb-dot"></div>
+            </div>
+
+            <div class="hero-scroll">
+                <div class="hs-mouse">
+                    <div class="hs-wheel"></div>
+                </div>
+                <span class="hs-txt">Gulir</span>
+            </div>
+        </section>
+
+        <!-- ═══ AYAT ═══ -->
+        <section id="ayat-sec">
+            <div class="ayat-dots"></div>
+            <div class="sec-wrap" style="padding-top:0;padding-bottom:0">
+                <div class="sec-head reveal">
+                    <p class="sec-num">Pembukaan</p>
+                    <h2 class="sec-title">Firman <em>Allah</em></h2>
+                    <div class="sec-rule" id="r0"></div>
+                </div>
+                <div class="ayat-box reveal-scale d2">
+                    <div class="ayat-corner2 tl"></div>
+                    <div class="ayat-corner2 tr"></div>
+                    <div class="ayat-corner2 bl"></div>
+                    <div class="ayat-corner2 br"></div>
+                    <div class="ayat-ar">
+                        فِطْرَتَ اللَّهِ الَّتِي فَطَرَ النَّاسَ عَلَيْهَا ۚ لَا تَبْدِيلَ لِخَلْقِ اللَّهِ
+                    </div>
+                    <p class="ayat-latin">"Fithratallahil latii fatharannaasa 'alayhaa, laa tabdiila likhalqillaah..."
+                    </p>
+                    <p class="ayat-terjemah">
+                        "Itulah fitrah Allah yang telah menciptakan manusia menurut fitrah itu. Tidak ada perubahan pada
+                        fitrah Allah."
+                    </p>
+                    <p class="ayat-ref">— QS. Ar-Rum : 30</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ KELUARGA ═══ -->
+        <section id="kel-sec">
+            <div class="kel-bg-line"></div>
+            <div class="sec-wrap" style="padding-top:0;padding-bottom:0">
+                <div class="sec-head reveal">
+                    <p class="sec-num">Putra dari</p>
+                    <h2 class="sec-title">Keluarga <em>Tercinta</em></h2>
+                    <div class="sec-rule" id="r1"></div>
+                </div>
+                <div class="kel-card reveal-scale d2">
+                    <div class="kel-icon">☽</div>
+                    <p class="kel-badge">Ayahanda</p>
+                    <p class="kel-name">Bapak Teguh Fahrurozi, S.P</p>
+                    <div class="kel-divider">&amp;</div>
+                    <p class="kel-badge">Ibunda</p>
+                    <p class="kel-name">Ibu Sucira S.T</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ GALERI FOTO ═══ -->
+        <section id="galeri-sec">
+            <div class="sec-wrap" style="padding-top:0;padding-bottom:0">
+                <div class="sec-head reveal">
+                    <p class="sec-num">Momen Istimewa</p>
+                    <h2 class="sec-title">Galeri <em>Foto</em></h2>
+                    <div class="sec-rule" id="r-gal"></div>
+                    <p style="margin-top:14px;font-size:15px;color:var(--ink4);line-height:1.9">
+                        Merangkai kenangan indah bersama orang-orang tersayang
+                    </p>
+                </div>
+
+                <!-- Slider + Dots wrapper -->
+                <div class="galeri-wrap reveal-scale d2">
+                    <div class="galeri-slider">
+                        <div class="gs-track" id="gsTrack">
+                            <div class="gs-slide">
+                                <img src="foto/1.jpeg" alt="Foto 1" loading="lazy" />
+                                <div class="gs-caption">Momen Bersama Keluarga</div>
+                            </div>
+                            <div class="gs-slide">
+                                <img src="foto/2.jpeg" alt="Foto 2" loading="lazy" />
+                                <div class="gs-caption">Kebahagiaan Hari Ini</div>
+                            </div>
+                            <div class="gs-slide">
+                                <img src="foto/3.jpeg" alt="Foto 3" loading="lazy" />
+                                <div class="gs-caption">Kenangan Terindah</div>
+                            </div>
+                            <div class="gs-slide">
+                                <img src="foto/4.jpeg" alt="Foto 4" loading="lazy" />
+                                <div class="gs-caption">Berkah &amp; Kebersamaan</div>
+                            </div>
+                        </div>
+                        <button class="gs-btn gs-prev hoverable" onclick="galeriPrev()"
+                            aria-label="Sebelumnya">&#8592;</button>
+                        <button class="gs-btn gs-next hoverable" onclick="galeriNext()"
+                            aria-label="Berikutnya">&#8594;</button>
+                    </div>
+                    <!-- Dots di luar slider agar tidak terpotong overflow -->
+                    <div class="gs-dots" id="gsDots">
+                        <span class="gs-dot active" onclick="galeriGo(0)"></span>
+                        <span class="gs-dot" onclick="galeriGo(1)"></span>
+                        <span class="gs-dot" onclick="galeriGo(2)"></span>
+                        <span class="gs-dot" onclick="galeriGo(3)"></span>
+                    </div>
+                </div>
+
+                <!-- Grid Thumbnail -->
+                <div class="galeri-grid reveal d3">
+                    <div class="gg-item hoverable" onclick="galeriGo(0)">
+                        <img src="foto/1.jpeg" alt="Foto 1" loading="lazy" />
+                        <div class="gg-overlay"><span>01</span></div>
+                    </div>
+                    <div class="gg-item hoverable" onclick="galeriGo(1)">
+                        <img src="foto/2.jpeg" alt="Foto 2" loading="lazy" />
+                        <div class="gg-overlay"><span>02</span></div>
+                    </div>
+                    <div class="gg-item hoverable" onclick="galeriGo(2)">
+                        <img src="foto/3.jpeg" alt="Foto 3" loading="lazy" />
+                        <div class="gg-overlay"><span>03</span></div>
+                    </div>
+                    <div class="gg-item hoverable" onclick="galeriGo(3)">
+                        <img src="foto/4.jpeg" alt="Foto 4" loading="lazy" />
+                        <div class="gg-overlay"><span>04</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ ACARA (TIMELINE) ═══ -->
+        <section id="acara-sec" style="background:var(--ink2);padding:80px 24px;position:relative;overflow:hidden">
+            <div class="sec-wrap" style="padding:0">
+                <div class="sec-head reveal">
+                    <p class="sec-num">01 ——</p>
+                    <h2 class="sec-title">Detail <em>Acara</em></h2>
+                    <div class="sec-rule" id="r2"></div>
+                </div>
+                <div class="timeline">
+                    <div class="tl-item d1">
+                        <div class="tl-dot-wrap">
+                            <div class="tl-dot"></div>
+                        </div>
+                        <div class="tl-body">
+                            <p class="tl-num">Tanggal</p>
+                            <p class="tl-val">Sabtu, 11 Juli 2026</p>
+                            <p class="tl-sub">Bertepatan 17 Muharram 1448 Hijriah</p>
+                        </div>
+                    </div>
+                    <div class="tl-item d2">
+                        <div class="tl-dot-wrap">
+                            <div class="tl-dot"></div>
+                        </div>
+                        <div class="tl-body">
+                            <p class="tl-num">Waktu</p>
+                            <p class="tl-val">08.00 s/d Selesai</p>
+                        </div>
+                    </div>
+                    <div class="tl-item d3">
+                        <div class="tl-dot-wrap">
+                            <div class="tl-dot"></div>
+                        </div>
+                        <div class="tl-body">
+                            <p class="tl-num">Tempat</p>
+                            <p class="tl-val">Kediaman Keluarga</p>
+                            <p class="tl-sub">Dusun Bojong Cilamaya Girang Belakang Toko Sumber Jaya H. Ujang</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ COUNTDOWN ═══ -->
+        <section id="cd-sec">
+            <div class="cd-rings">
+                <div class="cd-ring" style="width:240px;height:240px;--d:5s"></div>
+                <div class="cd-ring" style="width:400px;height:400px;--d:7s;border-color:rgba(201,168,76,.025)"></div>
+                <div class="cd-ring" style="width:600px;height:600px;--d:10s;border-color:rgba(201,168,76,.015)"></div>
+                <div class="cd-ring" style="width:800px;height:800px;--d:14s;border-color:rgba(201,168,76,.008)"></div>
+            </div>
+            <div style="position:relative;z-index:2">
+                <p class="cd-eyebrow reveal">Hitung Mundur</p>
+                <h2 class="cd-title reveal d1">Menuju Hari Bahagia<br><span>Najwan Kamil</span></h2>
+                <div class="cd-grid reveal-scale d2">
+                    <div class="cd-cell"><span class="cd-num" id="cD">--</span>
+                        <div class="cd-label">Hari</div>
+                    </div>
+                    <div class="cd-cell"><span class="cd-num" id="cH">--</span>
+                        <div class="cd-label">Jam</div>
+                    </div>
+                    <div class="cd-cell"><span class="cd-num" id="cM">--</span>
+                        <div class="cd-label">Menit</div>
+                    </div>
+                    <div class="cd-cell"><span class="cd-num" id="cS">--</span>
+                        <div class="cd-label">Detik</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ LOKASI ═══ -->
+        <section id="lok-sec">
+            <div class="sec-wrap" style="padding-top:0;padding-bottom:0">
+                <div class="sec-head reveal">
+                    <p class="sec-num">02 ——</p>
+                    <h2 class="sec-title">Lokasi <em>Acara</em></h2>
+                    <div class="sec-rule" id="r3"></div>
+                </div>
+                <div class="map-container reveal-scale d2">
+                    <div class="map-visual">
+                        <div class="map-bg-grid"></div>
+                        <div class="map-glow"></div>
+                        <div class="map-pulse-rings">
+                            <div class="mpr" style="--d:2.5s;--dl:0s"></div>
+                            <div class="mpr" style="--d:2.5s;--dl:.8s"></div>
+                            <div class="mpr" style="--d:2.5s;--dl:1.6s"></div>
+                        </div>
+                        <div class="map-pin-center">
+                            <span class="map-pin-emoji">📍</span>
+                            <p class="map-pin-nm">Kediaman Bpk. Teguh Fahrurozi S.P</p>
+                            <p class="map-pin-addr">Dusun Bojong Cilamaya Girang Belakang Toko Sumber Jaya</p>
+                        </div>
+                    </div>
+                    <p class="map-addr-txt reveal d3">
+                        Dusun Bojong Cilamaya Girang Belakang Toko Sumber Jaya H. Ujang
+                    </p>
+                    <div class="btn-stack reveal d4">
+                        <a href="https://www.google.com/maps/place/6%C2%B015'00.4%22S+107%C2%B036'05.2%22E/@-6.2497662,107.6007771,272m/data=!3m1!1e3!4m4!3m3!8m2!3d-6.2500991!4d107.6014523?hl=id&entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D"
+                            target="_blank" class="btn btn-gold hoverable">Buka di Google
+                            Maps →</a>
+                        <button class="btn btn-ghost hoverable" onclick="doCopy(this)">Salin Alamat</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ PENUTUP ═══ -->
+        <section id="penutup-sec">
+            <div class="penutup-radial"></div>
+            <div class="penutup-band"></div>
+
+            <div class="penutup-line-t reveal"></div>
+            <p class="penutup-ar reveal d1">وَالسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ</p>
+
+            <h2 class="penutup-name reveal d2">
+                Najwan Kamil
+                <strong>Alfarizi</strong>
+            </h2>
+            <p class="penutup-from reveal d3">
+                Putra dari<br>
+                <strong>Bapak Irfan Alfarizi &amp; Ibu Nurul Hidayah</strong><br><br>
+                Mengucapkan terima kasih yang sebesar-besarnya<br>
+                atas doa dan kehadiran Bapak/Ibu/Saudara/i tercinta
+            </p>
+            <div class="penutup-line-b reveal d4"></div>
+            <div class="share-row reveal d5">
+                <button class="sh-btn hoverable" onclick="doShare()">↗ Bagikan Undangan</button>
+                <button class="sh-btn hoverable" onclick="go('#hero')">↑ Kembali ke Atas</button>
+            </div>
+            <p class="footer-txt reveal d6">Undangan Digital · Walimatul Khitan · Najwan Kamil Alfarizi · 2026</p>
+        </section>
+
+    </div><!-- /main -->
+
+    <script>
+        /* ══ CURSOR ══ */
+        const $cur = document.getElementById('cursor');
+        const curOuter = $cur.querySelector('.cur-outer');
+        const curInner = $cur.querySelector('.cur-inner');
+        let mx = innerWidth / 2, my = innerHeight / 2, ox = mx, oy = my;
+
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            curInner.style.left = mx + 'px';
+            curInner.style.top = my + 'px';
+            const ct = $cur.querySelector('.cur-text');
+            ct.style.left = mx + 'px'; ct.style.top = my + 'px';
+        });
+
+        (function animCursor() {
+            ox += (mx - ox) * .1; oy += (my - oy) * .1;
+            curOuter.style.left = Math.round(ox) + 'px';
+            curOuter.style.top = Math.round(oy) + 'px';
+            requestAnimationFrame(animCursor);
+        })();
+
+        /* ══ LOADER ══ */
+        const lline = document.getElementById('lline');
+        let pct = 0;
+        const ldrInterval = setInterval(() => {
+            pct = Math.min(pct + Math.random() * 12, 100);
+            lline.style.width = pct + '%';
+            if (pct >= 100) {
+                clearInterval(ldrInterval);
+                setTimeout(() => {
+                    const ldr = document.getElementById('loader');
+                    ldr.style.transition = 'opacity .7s ease, transform .7s ease';
+                    ldr.style.opacity = '0'; ldr.style.transform = 'scale(1.04)';
+                    setTimeout(() => { ldr.remove(); initGateCanvas(); }, 700);
+                }, 300);
+            }
+        }, 80);
+
+        /* ══ GATE CANVAS (particle web) ══ */
+        function initGateCanvas() {
+            const canvas = document.getElementById('gCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
+            resize(); window.addEventListener('resize', resize);
+
+            const N = 55;
+            const pts = Array.from({ length: N }, () => ({
+                x: Math.random() * innerWidth, y: Math.random() * innerHeight,
+                vx: (Math.random() - .5) * .5, vy: (Math.random() - .5) * .5,
+                r: Math.random() * 2 + .5, o: Math.random() * .3 + .05
+            }));
+
+            function drawGate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                pts.forEach(p => {
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(201,168,76,${p.o})`; ctx.fill();
+                });
+                for (let i = 0; i < N; i++) for (let j = i + 1; j < N; j++) {
+                    const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+                    if (d < 100) {
+                        ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y);
+                        ctx.strokeStyle = `rgba(201,168,76,${.07 * (1 - d / 100)})`; ctx.lineWidth = .8; ctx.stroke();
+                    }
+                }
+                requestAnimationFrame(drawGate);
+            }
+            drawGate();
+        }
+
+        /* ══ HERO CANVAS (stars + waves) ══ */
+        function startHeroCanvas() {
+            const canvas = document.getElementById('heroCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+            resize(); window.addEventListener('resize', resize);
+
+            const stars = Array.from({ length: 80 }, () => ({
+                x: Math.random(), y: Math.random(),
+                r: Math.random() * 1.8 + .3, o: Math.random() * .4,
+                s: Math.random() * .6 + .2, phase: Math.random() * Math.PI * 2
+            }));
+
+            let t = 0;
+            (function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                t += .007;
+
+                // Stars
+                stars.forEach((s, i) => {
+                    const pulse = (Math.sin(t * s.s + s.phase) + 1) / 2;
+                    ctx.beginPath();
+                    ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r * (.5 + pulse * .5), 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(201,168,76,${s.o * (.4 + pulse * .6)})`;
+                    ctx.fill();
+                });
+
+                // Wave lines
+                for (let w = 0; w < 4; w++) {
+                    ctx.beginPath();
+                    const baseY = canvas.height * (.2 + w * .2);
+                    const amp = 15 + w * 5;
+                    for (let x = 0; x <= canvas.width; x += 3) {
+                        const y = baseY + Math.sin(x * .008 + t + w * .8) * amp
+                            + Math.sin(x * .014 + t * 1.3 + w) * (amp * .4);
+                        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                    }
+                    ctx.strokeStyle = `rgba(201,168,76,${.025 - w * .004})`;
+                    ctx.lineWidth = 1; ctx.stroke();
+                }
+
+                // Diagonal scan
+                const scanX = ((t * 60) % (canvas.width * 2)) - canvas.width / 2;
+                const grad = ctx.createLinearGradient(scanX - 40, 0, scanX + 40, 0);
+                grad.addColorStop(0, 'rgba(201,168,76,0)');
+                grad.addColorStop(.5, 'rgba(201,168,76,.04)');
+                grad.addColorStop(1, 'rgba(201,168,76,0)');
+                ctx.fillStyle = grad;
+                ctx.fillRect(scanX - 40, 0, 80, canvas.height);
+
+                requestAnimationFrame(draw);
+            })();
+        }
+
+        /* ══ OPEN GATE ══ */
+        function openGate() {
+            spawnPetals();
+            const gate = document.getElementById('gate');
+            gate.classList.add('open');
+
+            const main = document.getElementById('main');
+            main.classList.add('show');
+            document.getElementById('nav').classList.add('show');
+            document.getElementById('bnav').classList.add('show');
+            document.getElementById('mpill').classList.add('show');
+
+            setTimeout(() => { gate.style.display = 'none'; }, 1500);
+            startHeroCanvas();
+            startCountdown();
+            setTimeout(initReveal, 600);
+        }
+
+        /* ══ PETALS BURST ══ */
+        function spawnPetals(cx, cy) {
+            const cx2 = cx || innerWidth * .5, cy2 = cy || innerHeight * .5;
+            for (let i = 0; i < 28; i++) {
+                const el = document.createElement('div');
+                const sz = 5 + Math.random() * 12;
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 80 + Math.random() * 200;
+                const tx = Math.cos(angle) * dist;
+                const ty = Math.sin(angle) * dist - 80;
+                const hue = 38 + Math.random() * 20;
+                const sat = 55 + Math.random() * 25;
+                const lit = 70 + Math.random() * 20;
+
+                Object.assign(el.style, {
+                    position: 'fixed', left: cx2 + 'px', top: cy2 + 'px',
+                    width: sz + 'px', height: sz + 'px',
+                    borderRadius: Math.random() > .5 ? '50%' : '50% 0 50% 0',
+                    background: `hsl(${hue},${sat}%,${lit}%)`,
+                    pointerEvents: 'none', zIndex: 600
+                });
+                document.body.appendChild(el);
+                el.animate([
+                    { opacity: 1, transform: `translate(0,0) rotate(0deg) scale(1)` },
+                    { opacity: 0, transform: `translate(${tx}px,${ty}px) rotate(${Math.random() * 720 - 360}deg) scale(0)` }
+                ], { duration: 900 + Math.random() * 500, easing: 'ease-out', fill: 'forwards' })
+                    .onfinish = () => el.remove();
+            }
+        }
+
+        /* ══ COUNTDOWN ══ */
+        const EVT = new Date('2026-07-11T08:00:00');
+        const prevVals = {};
+        function startCountdown() {
+            function tick() {
+                const now = new Date(), d = EVT - now;
+                if (d <= 0) return;
+                const vals = {
+                    cD: String(Math.floor(d / 86400000)).padStart(2, '0'),
+                    cH: String(Math.floor((d % 86400000) / 3600000)).padStart(2, '0'),
+                    cM: String(Math.floor((d % 3600000) / 60000)).padStart(2, '0'),
+                    cS: String(Math.floor((d % 60000) / 1000)).padStart(2, '0')
+                };
+                Object.keys(vals).forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el && vals[id] !== prevVals[id]) {
+                        el.textContent = vals[id];
+                        el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick');
+                        prevVals[id] = vals[id];
+                    }
+                });
+            }
+            tick(); setInterval(tick, 500);
+        }
+
+        /* ══ GALERI SLIDER ══ */
+        let galeriIndex = 0;
+        const GALERI_TOTAL = 4;
+        let galeriAutoPlay;
+
+        function galeriGo(idx) {
+            galeriIndex = (idx + GALERI_TOTAL) % GALERI_TOTAL;
+            const track = document.getElementById('gsTrack');
+            if (track) track.style.transform = `translateX(-${galeriIndex * 100}%)`;
+            document.querySelectorAll('.gs-dot').forEach((d, i) => d.classList.toggle('active', i === galeriIndex));
+        }
+        function galeriNext() { galeriGo(galeriIndex + 1); }
+        function galeriPrev() { galeriGo(galeriIndex - 1); }
+
+        // Auto-play every 4.5s
+        function startGaleriAuto() {
+            clearInterval(galeriAutoPlay);
+            galeriAutoPlay = setInterval(() => galeriNext(), 4500);
+        }
+        startGaleriAuto();
+
+        // Touch swipe support
+        (function () {
+            let tx = 0;
+            const slider = document.querySelector('.galeri-wrap .galeri-slider');
+            if (!slider) return;
+            slider.addEventListener('touchstart', e => { tx = e.changedTouches[0].clientX; }, { passive: true });
+            slider.addEventListener('touchend', e => {
+                const dx = e.changedTouches[0].clientX - tx;
+                if (Math.abs(dx) > 40) {
+                    dx < 0 ? galeriNext() : galeriPrev();
+                    clearInterval(galeriAutoPlay);
+                    startGaleriAuto();
+                }
+            }, { passive: true });
+        })();
+
+        /* ══ SCROLL ══ */
+        function initReveal() {
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (!e.isIntersecting) return;
+                    e.target.classList.add('in');
+                    // grow rules
+                    ['r0', 'r1', 'r2', 'r3', 'r4', 'r5', 'r-gal'].forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.classList.add('grown');
+                    });
+                    // timeline items
+                    e.target.querySelectorAll('.tl-item').forEach((it, i) => {
+                        setTimeout(() => it.classList.add('in'), i * 120);
+                    });
+                });
+            }, { threshold: .08 });
+
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .sec-head, .timeline, #cd-sec > div, .ayat-box, .kel-card, .map-container, .ucap-card, .penutup-line-t, .penutup-ar, .penutup-name, .penutup-from, .penutup-line-b, .share-row, .footer-txt, .rsvp-wrap form, .galeri-slider, .galeri-grid').forEach(el => io.observe(el));
+        }
+
+        // Nav scroll + progress
+        window.addEventListener('scroll', () => {
+            const sy = window.scrollY;
+            document.getElementById('nav').classList.toggle('scrolled', sy > 60);
+            const total = document.body.scrollHeight - window.innerHeight;
+            document.getElementById('sprogress').style.width = (sy / total * 100) + '%';
+            // Parallax hero
+            const hero = document.getElementById('hero');
+            if (hero && sy < innerHeight * 1.2) {
+                hero.style.transform = `translateY(${sy * .28}px)`;
+                hero.style.opacity = 1 - sy / (innerHeight * .85);
+            }
+        });
+
+        /* ══ RSVP ══ */
+        let attChoice = 'hadir';
+        function setAtt(v) {
+            attChoice = v;
+            document.getElementById('bH').classList.toggle('on', v === 'hadir');
+            document.getElementById('bT').classList.toggle('on', v === 'tidak');
+        }
+        function doRSVP(e) {
+            e.preventDefault();
+            const nama = document.getElementById('fNama').value;
+            const pesan = document.getElementById('fPesan').value;
+            if (pesan.trim()) addUcapan(nama, pesan);
+            document.getElementById('rsvpForm').style.display = 'none';
+            const suc = document.getElementById('rsvpSuccess');
+            suc.classList.add('show');
+            suc.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => spawnPetals(innerWidth / 2, innerHeight / 2), 200);
+        }
+        function addUcapan(nama, msg) {
+            const list = document.getElementById('ucapList');
+            const el = document.createElement('div');
+            el.className = 'ucap-card';
+            el.innerHTML = `<div class="ucap-accent"></div><div class="ucap-body"><p class="ucap-who">${nama} <span style="color:var(--g);font-size:8px;letter-spacing:2px">✦ BARU</span></p><p class="ucap-msg">${msg}</p></div>`;
+            el.style.cssText = 'opacity:0;transform:translateX(-16px);transition:all .6s ease';
+            list.insertBefore(el, list.firstChild);
+            requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'translateX(0)'; });
+        }
+
+        /* ══ UTILS ══ */
+        function go(sel) { document.querySelector(sel)?.scrollIntoView({ behavior: 'smooth' }); }
+        function doCopy(btn) {
+            const addr = 'Jl. Melati Raya No. 7, Menteng, Jakarta Pusat, DKI Jakarta 10310';
+            navigator.clipboard?.writeText(addr).then(() => {
+                const o = btn.textContent; btn.textContent = '✓ Tersalin!';
+                setTimeout(() => btn.textContent = o, 2000);
+            }).catch(() => alert('Alamat: ' + addr));
+        }
+        function doShare() {
+            if (navigator.share) {
+                navigator.share({ title: 'Undangan Khitanan · Najwan Kamil Alfarizi', text: 'Kami mengundang Bapak/Ibu/Saudara/i di acara Walimatul Khitan Najwan Kamil Alfarizi, Sabtu 11 Juli 2026.', url: location.href }).catch(() => { });
+            } else {
+                navigator.clipboard?.writeText(location.href).then(() => alert('✓ Link berhasil disalin!')).catch(() => alert('Salin URL dari address bar.'));
+            }
+        }
+
+        let musicOn = false;
+        function toggleMusic() {
+            musicOn = !musicOn;
+            document.getElementById('mtxt').textContent = musicOn ? 'Jeda' : 'Musik';
+            const speeds = [.45, .3, .55, .4, .5];
+            [1, 2, 3, 4, 5].forEach((n, i) => {
+                const b = document.getElementById('b' + n);
+                if (!b) return;
+                if (musicOn) { b.classList.add('play'); b.style.setProperty('--s', speeds[i] + 's'); }
+                else b.classList.remove('play');
+            });
+        }
+    </script>
+</body>
+
+</html>
