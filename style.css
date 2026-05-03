@@ -33,65 +33,10 @@
             background: var(--ink);
             color: var(--paper);
             overflow-x: hidden;
-            cursor: none;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ══════════ CURSOR ══════════ */
-        #cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference
-        }
 
-        .cur-outer {
-            width: 44px;
-            height: 44px;
-            border: 1px solid rgba(255, 255, 255, .6);
-            border-radius: 50%;
-            position: absolute;
-            transform: translate(-50%, -50%);
-            transition: width .4s cubic-bezier(.25, .46, .45, .94), height .4s cubic-bezier(.25, .46, .45, .94), border-color .3s;
-        }
-
-        .cur-inner {
-            width: 6px;
-            height: 6px;
-            background: rgba(255, 255, 255, .9);
-            border-radius: 50%;
-            position: absolute;
-            transform: translate(-50%, -50%);
-            transition: transform .1s;
-        }
-
-        .cur-text {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            font-size: 9px;
-            letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0);
-            text-transform: uppercase;
-            transition: color .3s;
-            white-space: nowrap;
-            font-family: 'Crimson Pro', serif;
-        }
-
-        body:has(.hoverable:hover) .cur-outer {
-            width: 80px;
-            height: 80px;
-            border-color: var(--g)
-        }
-
-        body:has(.hoverable:hover) .cur-text {
-            color: var(--g)
-        }
-
-        body:has(.hoverable:hover) .cur-inner {
-            transform: translate(-50%, -50%) scale(0)
-        }
 
         /* ══════════ LOADER ══════════ */
         #loader {
