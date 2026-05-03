@@ -131,6 +131,14 @@
             <span id="mtxt">Musik</span>
         </div>
 
+    <!-- AUDIO -->
+    <audio id="bgMusic" loop preload="none">
+        <!-- Taruh file music.mp3 di folder undangan untuk musik lokal -->
+        <source src="music.mp3" type="audio/mpeg">
+        <!-- Fallback: nasheed online gratis -->
+        <source src="https://upload.wikimedia.org/wikipedia/commons/3/30/Tala%27_al-Badru_%27Alayna.ogg" type="audio/ogg">
+    </audio>
+
         <!-- ═══ HERO ═══ -->
         <section id="hero"
             style="min-height:100svh;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 28px 120px">
@@ -614,6 +622,21 @@
             startHeroCanvas();
             startCountdown();
             setTimeout(initReveal, 600);
+
+            // Auto-play musik setelah user klik buka undangan
+            setTimeout(() => {
+                const speeds = [.45, .3, .55, .4, .5];
+                bgMusic.play().then(() => {
+                    musicOn = true;
+                    document.getElementById('mtxt').textContent = 'Jeda';
+                    [1,2,3,4,5].forEach((n, i) => {
+                        const b = document.getElementById('b' + n);
+                        if (!b) return;
+                        b.classList.add('play');
+                        b.style.setProperty('--s', speeds[i] + 's');
+                    });
+                }).catch(() => { /* browser blokir autoplay, user bisa klik manual */ });
+            }, 800);
         }
 
         /* ══ PETALS BURST ══ */
@@ -788,18 +811,38 @@
             }
         }
 
+        /* ══ MUSIC ══ */
+        const bgMusic = document.getElementById('bgMusic');
+        bgMusic.volume = 0.5;
         let musicOn = false;
+
         function toggleMusic() {
-            musicOn = !musicOn;
-            document.getElementById('mtxt').textContent = musicOn ? 'Jeda' : 'Musik';
             const speeds = [.45, .3, .55, .4, .5];
-            [1, 2, 3, 4, 5].forEach((n, i) => {
-                const b = document.getElementById('b' + n);
-                if (!b) return;
-                if (musicOn) { b.classList.add('play'); b.style.setProperty('--s', speeds[i] + 's'); }
-                else b.classList.remove('play');
-            });
+            if (!musicOn) {
+                bgMusic.play().then(() => {
+                    musicOn = true;
+                    document.getElementById('mtxt').textContent = 'Jeda';
+                    [1,2,3,4,5].forEach((n, i) => {
+                        const b = document.getElementById('b' + n);
+                        if (!b) return;
+                        b.classList.add('play');
+                        b.style.setProperty('--s', speeds[i] + 's');
+                    });
+                }).catch(() => {
+                    alert('Gagal memutar musik. Coba taruh file musik.mp3 di folder undangan.');
+                });
+            } else {
+                bgMusic.pause();
+                musicOn = false;
+                document.getElementById('mtxt').textContent = 'Musik';
+                [1,2,3,4,5].forEach(n => {
+                    const b = document.getElementById('b' + n);
+                    if (b) b.classList.remove('play');
+                });
+            }
         }
+
+
     </script>
 </body>
 
