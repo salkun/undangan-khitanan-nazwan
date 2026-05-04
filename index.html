@@ -101,7 +101,6 @@
         <nav id="nav">
             <div class="nav-brand"><span>N</span>KA &nbsp;·&nbsp; Khitan</div>
             <div class="nav-links">
-                <a class="na hoverable" onclick="go('#galeri-sec')">Galeri</a>
                 <a class="na hoverable" onclick="go('#acara-sec')">Acara</a>
                 <a class="na hoverable" onclick="go('#lok-sec')">Lokasi</a>
                 <a class="na hoverable" onclick="go('#amplop-sec')">Amplop</a>
@@ -112,8 +111,6 @@
         <div id="bnav">
             <a class="bni hoverable" onclick="go('#hero')"><span class="bni-i">🏠</span><span
                     class="bni-l">Beranda</span></a>
-            <a class="bni hoverable" onclick="go('#galeri-sec')"><span class="bni-i">🖼️</span><span
-                    class="bni-l">Galeri</span></a>
             <a class="bni hoverable" onclick="go('#acara-sec')"><span class="bni-i">📋</span><span
                     class="bni-l">Acara</span></a>
             <a class="bni hoverable" onclick="go('#lok-sec')"><span class="bni-i">📍</span><span
@@ -298,65 +295,6 @@
             </div>
         </section>
 
-        <!-- ═══ GALERI FOTO ═══ -->
-        <section id="galeri-sec">
-            <div class="sec-wrap" style="padding-top:0;padding-bottom:0">
-                <div class="sec-head reveal">
-                    <p class="sec-num">Momen Istimewa</p>
-                    <h2 class="sec-title">Galeri <em>Foto</em></h2>
-                    <div class="sec-rule" id="r-gal"></div>
-                    <p style="margin-top:14px;font-size:15px;color:var(--ink4);line-height:1.9">
-                        Merangkai kenangan indah bersama orang-orang tersayang
-                    </p>
-                </div>
-
-                <!-- Slider + Dots wrapper -->
-                <div class="galeri-wrap reveal-scale d2">
-                    <div class="galeri-slider">
-                        <div class="gs-track" id="gsTrack">
-                            <div class="gs-slide">
-                                <img src="foto/1.jpeg" alt="Foto 1" loading="lazy" />
-                                <div class="gs-caption">Momen Bersama Keluarga</div>
-                            </div>
-                            <div class="gs-slide">
-                                <img src="foto/2.jpeg" alt="Foto 2" loading="lazy" />
-                                <div class="gs-caption">Kebahagiaan Hari Ini</div>
-                            </div>
-                            <div class="gs-slide">
-                                <img src="foto/3.jpeg" alt="Foto 3" loading="lazy" />
-                                <div class="gs-caption">Kenangan Terindah</div>
-                            </div>
-                        </div>
-                        <button class="gs-btn gs-prev hoverable" onclick="galeriPrev()"
-                            aria-label="Sebelumnya">&#8592;</button>
-                        <button class="gs-btn gs-next hoverable" onclick="galeriNext()"
-                            aria-label="Berikutnya">&#8594;</button>
-                    </div>
-                    <!-- Dots di luar slider agar tidak terpotong overflow -->
-                    <div class="gs-dots" id="gsDots">
-                        <span class="gs-dot active" onclick="galeriGo(0)"></span>
-                        <span class="gs-dot" onclick="galeriGo(1)"></span>
-                        <span class="gs-dot" onclick="galeriGo(2)"></span>
-                    </div>
-                </div>
-
-                <!-- Grid Thumbnail -->
-                <div class="galeri-grid reveal d3">
-                    <div class="gg-item hoverable" onclick="galeriGo(0)">
-                        <img src="foto/1.jpeg" alt="Foto 1" loading="lazy" />
-                        <div class="gg-overlay"><span>01</span></div>
-                    </div>
-                    <div class="gg-item hoverable" onclick="galeriGo(1)">
-                        <img src="foto/2.jpeg" alt="Foto 2" loading="lazy" />
-                        <div class="gg-overlay"><span>02</span></div>
-                    </div>
-                    <div class="gg-item hoverable" onclick="galeriGo(2)">
-                        <img src="foto/3.jpeg" alt="Foto 3" loading="lazy" />
-                        <div class="gg-overlay"><span>03</span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- ═══ ACARA (TIMELINE) ═══ -->
         <section id="acara-sec" style="background:var(--ink2);padding:80px 24px;position:relative;overflow:hidden">
@@ -487,6 +425,20 @@
                     <p style="font-size:14px; color:var(--g); margin-bottom:20px;">a.n Sucira</p>
                     <button class="btn btn-gold hoverable" onclick="copyDana(this)"
                         style="padding:10px 20px; font-size:12px; width: 100%;">Salin Nomor DANA</button>
+                </div>
+
+                <div class="amplop-box reveal-scale d3"
+                    style="background:rgba(201,168,76,.05); border:1px solid rgba(201,168,76,.2); padding:30px 20px; border-radius:12px; max-width:320px; margin:20px auto 0; position:relative;">
+                    <div
+                        style="font-weight:bold; font-size:24px; color:#00529C; margin-bottom:10px; font-family:sans-serif; letter-spacing:1px;">
+                        BRI</div>
+                    <p style="font-size:18px; color:var(--paper); letter-spacing:2px; margin-bottom:5px;">
+                        367201019342508
+                    </p>
+                    <p style="font-size:14px; color:var(--g); margin-bottom:20px;">a.n TEGUH FAHRUROZI QQ NAJWAN KAMIL
+                        ALFARIZI</p>
+                    <button class="btn btn-gold hoverable" onclick="copyBRI(this)"
+                        style="padding:10px 20px; font-size:12px; width: 100%;">Salin Nomor BRI</button>
                 </div>
             </div>
         </section>
@@ -716,43 +668,6 @@
             tick(); setInterval(tick, 500);
         }
 
-        /* ══ GALERI SLIDER ══ */
-        let galeriIndex = 0;
-        const GALERI_TOTAL = 4;
-        let galeriAutoPlay;
-
-        function galeriGo(idx) {
-            galeriIndex = (idx + GALERI_TOTAL) % GALERI_TOTAL;
-            const track = document.getElementById('gsTrack');
-            if (track) track.style.transform = `translateX(-${galeriIndex * 100}%)`;
-            document.querySelectorAll('.gs-dot').forEach((d, i) => d.classList.toggle('active', i === galeriIndex));
-        }
-        function galeriNext() { galeriGo(galeriIndex + 1); }
-        function galeriPrev() { galeriGo(galeriIndex - 1); }
-
-        // Auto-play every 4.5s
-        function startGaleriAuto() {
-            clearInterval(galeriAutoPlay);
-            galeriAutoPlay = setInterval(() => galeriNext(), 4500);
-        }
-        startGaleriAuto();
-
-        // Touch swipe support
-        (function () {
-            let tx = 0;
-            const slider = document.querySelector('.galeri-wrap .galeri-slider');
-            if (!slider) return;
-            slider.addEventListener('touchstart', e => { tx = e.changedTouches[0].clientX; }, { passive: true });
-            slider.addEventListener('touchend', e => {
-                const dx = e.changedTouches[0].clientX - tx;
-                if (Math.abs(dx) > 40) {
-                    dx < 0 ? galeriNext() : galeriPrev();
-                    clearInterval(galeriAutoPlay);
-                    startGaleriAuto();
-                }
-            }, { passive: true });
-        })();
-
         /* ══ SCROLL ══ */
         function initReveal() {
             const io = new IntersectionObserver(entries => {
@@ -831,6 +746,13 @@
                 const o = btn.textContent; btn.textContent = '✓ Tersalin!';
                 setTimeout(() => btn.textContent = o, 2000);
             }).catch(() => alert('Nomor DANA: ' + num));
+        }
+        function copyBRI(btn) {
+            const num = '367201019342508';
+            navigator.clipboard?.writeText(num).then(() => {
+                const o = btn.textContent; btn.textContent = '✓ Tersalin!';
+                setTimeout(() => btn.textContent = o, 2000);
+            }).catch(() => alert('Nomor BRI: ' + num));
         }
         function doShare() {
             if (navigator.share) {
