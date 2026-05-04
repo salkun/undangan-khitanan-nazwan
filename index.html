@@ -104,6 +104,7 @@
                 <a class="na hoverable" onclick="go('#galeri-sec')">Galeri</a>
                 <a class="na hoverable" onclick="go('#acara-sec')">Acara</a>
                 <a class="na hoverable" onclick="go('#lok-sec')">Lokasi</a>
+                <a class="na hoverable" onclick="go('#amplop-sec')">Amplop</a>
             </div>
         </nav>
 
@@ -117,6 +118,8 @@
                     class="bni-l">Acara</span></a>
             <a class="bni hoverable" onclick="go('#lok-sec')"><span class="bni-i">📍</span><span
                     class="bni-l">Lokasi</span></a>
+            <a class="bni hoverable" onclick="go('#amplop-sec')"><span class="bni-i">🎁</span><span
+                    class="bni-l">Amplop</span></a>
         </div>
 
         <!-- MUSIC -->
@@ -131,13 +134,14 @@
             <span id="mtxt">Musik</span>
         </div>
 
-    <!-- AUDIO -->
-    <audio id="bgMusic" loop preload="none">
-        <!-- Taruh file music.mp3 di folder undangan untuk musik lokal -->
-        <source src="music.mp3" type="audio/mpeg">
-        <!-- Fallback: nasheed online gratis -->
-        <source src="https://upload.wikimedia.org/wikipedia/commons/3/30/Tala%27_al-Badru_%27Alayna.ogg" type="audio/ogg">
-    </audio>
+        <!-- AUDIO -->
+        <audio id="bgMusic" loop preload="none">
+            <!-- Taruh file music.mp3 di folder undangan untuk musik lokal -->
+            <source src="music.mp3" type="audio/mpeg">
+            <!-- Fallback: nasheed online gratis -->
+            <source src="https://upload.wikimedia.org/wikipedia/commons/3/30/Tala%27_al-Badru_%27Alayna.ogg"
+                type="audio/ogg">
+        </audio>
 
         <!-- ═══ HERO ═══ -->
         <section id="hero"
@@ -212,7 +216,7 @@
                 <div class="hpf-corner hpf-bl"></div>
                 <div class="hpf-corner hpf-br"></div>
                 <div class="hpf-ring"></div>
-                <img src="foto/1.jpeg" alt="Najwan Kamil Alfarizi" class="hero-photo-img" />
+                <img src="foto/5.jpeg" alt="Najwan Kamil Alfarizi" class="hero-photo-img" />
                 <div class="hpf-overlay"></div>
             </div>
 
@@ -289,7 +293,7 @@
                     <p class="kel-name">Bapak Teguh Fahrurozi, S.P</p>
                     <div class="kel-divider">&amp;</div>
                     <p class="kel-badge">Ibunda</p>
-                    <p class="kel-name">Ibu Sucira S.T</p>
+                    <p class="kel-name">Ibu Sucira, S.T</p>
                 </div>
             </div>
         </section>
@@ -322,10 +326,6 @@
                                 <img src="foto/3.jpeg" alt="Foto 3" loading="lazy" />
                                 <div class="gs-caption">Kenangan Terindah</div>
                             </div>
-                            <div class="gs-slide">
-                                <img src="foto/4.jpeg" alt="Foto 4" loading="lazy" />
-                                <div class="gs-caption">Berkah &amp; Kebersamaan</div>
-                            </div>
                         </div>
                         <button class="gs-btn gs-prev hoverable" onclick="galeriPrev()"
                             aria-label="Sebelumnya">&#8592;</button>
@@ -337,7 +337,6 @@
                         <span class="gs-dot active" onclick="galeriGo(0)"></span>
                         <span class="gs-dot" onclick="galeriGo(1)"></span>
                         <span class="gs-dot" onclick="galeriGo(2)"></span>
-                        <span class="gs-dot" onclick="galeriGo(3)"></span>
                     </div>
                 </div>
 
@@ -354,10 +353,6 @@
                     <div class="gg-item hoverable" onclick="galeriGo(2)">
                         <img src="foto/3.jpeg" alt="Foto 3" loading="lazy" />
                         <div class="gg-overlay"><span>03</span></div>
-                    </div>
-                    <div class="gg-item hoverable" onclick="galeriGo(3)">
-                        <img src="foto/4.jpeg" alt="Foto 4" loading="lazy" />
-                        <div class="gg-overlay"><span>04</span></div>
                     </div>
                 </div>
             </div>
@@ -465,6 +460,33 @@
                             Maps →</a>
                         <button class="btn btn-ghost hoverable" onclick="doCopy(this)">Salin Alamat</button>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ AMPLOP DIGITAL ═══ -->
+        <section id="amplop-sec" style="background:var(--ink2);padding:80px 24px;position:relative;overflow:hidden">
+            <div class="sec-wrap" style="padding:0; text-align:center;">
+                <div class="sec-head reveal">
+                    <p class="sec-num">03 ——</p>
+                    <h2 class="sec-title">Tanda <em>Kasih</em></h2>
+                    <div class="sec-rule" id="r4"></div>
+                    <p style="margin-top:14px;font-size:14px;color:var(--ink4);line-height:1.8">
+                        Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika Bapak/Ibu/Saudara/i
+                        ingin memberikan tanda kasih untuk ananda, dapat melalui fitur di bawah ini:
+                    </p>
+                </div>
+
+                <div class="amplop-box reveal-scale d2"
+                    style="background:rgba(201,168,76,.05); border:1px solid rgba(201,168,76,.2); padding:30px 20px; border-radius:12px; max-width:320px; margin:30px auto 0; position:relative;">
+                    <div
+                        style="font-weight:bold; font-size:24px; color:#118EEA; margin-bottom:10px; font-family:sans-serif; letter-spacing:1px;">
+                        DANA</div>
+                    <p style="font-size:18px; color:var(--paper); letter-spacing:2px; margin-bottom:5px;">081293398165
+                    </p>
+                    <p style="font-size:14px; color:var(--g); margin-bottom:20px;">a.n Sucira</p>
+                    <button class="btn btn-gold hoverable" onclick="copyDana(this)"
+                        style="padding:10px 20px; font-size:12px; width: 100%;">Salin Nomor DANA</button>
                 </div>
             </div>
         </section>
@@ -629,7 +651,7 @@
                 bgMusic.play().then(() => {
                     musicOn = true;
                     document.getElementById('mtxt').textContent = 'Jeda';
-                    [1,2,3,4,5].forEach((n, i) => {
+                    [1, 2, 3, 4, 5].forEach((n, i) => {
                         const b = document.getElementById('b' + n);
                         if (!b) return;
                         b.classList.add('play');
@@ -803,6 +825,13 @@
                 setTimeout(() => btn.textContent = o, 2000);
             }).catch(() => alert('Alamat: ' + addr));
         }
+        function copyDana(btn) {
+            const num = '081293398165';
+            navigator.clipboard?.writeText(num).then(() => {
+                const o = btn.textContent; btn.textContent = '✓ Tersalin!';
+                setTimeout(() => btn.textContent = o, 2000);
+            }).catch(() => alert('Nomor DANA: ' + num));
+        }
         function doShare() {
             if (navigator.share) {
                 navigator.share({ title: 'Undangan Khitanan · Najwan Kamil Alfarizi', text: 'Kami mengundang Bapak/Ibu/Saudara/i di acara Walimatul Khitan Najwan Kamil Alfarizi, Sabtu 11 Juli 2026.', url: location.href }).catch(() => { });
@@ -822,7 +851,7 @@
                 bgMusic.play().then(() => {
                     musicOn = true;
                     document.getElementById('mtxt').textContent = 'Jeda';
-                    [1,2,3,4,5].forEach((n, i) => {
+                    [1, 2, 3, 4, 5].forEach((n, i) => {
                         const b = document.getElementById('b' + n);
                         if (!b) return;
                         b.classList.add('play');
@@ -835,7 +864,7 @@
                 bgMusic.pause();
                 musicOn = false;
                 document.getElementById('mtxt').textContent = 'Musik';
-                [1,2,3,4,5].forEach(n => {
+                [1, 2, 3, 4, 5].forEach(n => {
                     const b = document.getElementById('b' + n);
                     if (b) b.classList.remove('play');
                 });
